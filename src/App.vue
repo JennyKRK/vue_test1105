@@ -3,10 +3,20 @@
     <h1 class="bigger">Witaj w systemie do zapisów na zajęcia</h1>
     <div v-if="loggedIn">Logged in</div>
 
+<!--    instead of loggin you can check if email.length>0-->
+
+
+<!--    <div v-else>-->
+<!--      <input type="email" v-model="email">-->
+<!--      <button @click="updateScreen">Wchodze</button>-->
+<!--    </div>-->
 
     <div v-else>
-      <input type="email" v-model="email">
-      <button @click="updateScreen">Wchodze</button>
+<!--      <LoginForm @login="(username) => updateScreen(username)"></LoginForm>-->
+      <LoginForm @login="(username) => logMeIn(username)"></LoginForm>
+      <LoginForm @login="(username) => logMeIn(username)"></LoginForm>
+      <LoginForm @login="(username) => logMeIn(username)" button-label="Wejdź"></LoginForm>
+
     </div>
 
 <!--    <h1>Twój e-mail to: {{ email }}-->
@@ -16,27 +26,28 @@
 <!--    <div v-else>Twój adres e-mail jest stanowczo za długi.</div>-->
 
 
-    <h1 class="smaller"> </h1>
-      Zaloguj się emailem
+<!--    <h1 class="smaller"> </h1>-->
+<!--      Zaloguj się emailem-->
 
-
+<!--    <h1>-->
 
 <!--    <button @click="alertMyEmail()">Wyświetl mój e-mail w alercie</button>-->
 
 
 <!--    <div v-if="!email.includes('@')">Niepoprawny mail.</div>-->
 
-    <h1>
-
-    <div v-if="loggedIn == true">Witamy w systemie</div>
-    </h1>
+    <div v-if="loggedIn == true">Witamy w systemie {{email}}
+      <p @click="logOut">Wyloguj</p>
+    </div>
 
   </div>
 </template>
 
 <script>
+import "milligram";
+import LoginForm from "./LoginForm";
 export default {
-
+  components: {LoginForm},
   data() {
     return {
       email: '',
@@ -50,12 +61,27 @@ export default {
       alert(this.email);
     },
 
-    updateScreen(){
+    // updateScreen(){
+    //   this.loggedIn = true;
+    // },
+
+    logOut(){
+      this.loggedIn = false;
+      this.email = '';
+    },
+
+    logMeIn(username) {
+      this.authenticatedUsername = username;
       this.loggedIn = true;
     }
   }
 
 }
+
+
+
+
+
 </script>
 
 <style>
