@@ -1,44 +1,20 @@
 <template>
   <div class="my-app">
     <h1 class="bigger">Witaj w systemie do zapisów na zajęcia</h1>
-    <div v-if="loggedIn">Logged in</div>
+    <div v-if="email.length>0">Logged in</div>
 
-<!--    instead of loggin you can check if email.length>0-->
-
-
-<!--    <div v-else>-->
-<!--      <input type="email" v-model="email">-->
-<!--      <button @click="updateScreen">Wchodze</button>-->
-<!--    </div>-->
 
     <div v-else>
-<!--      <LoginForm @login="(username) => updateScreen(username)"></LoginForm>-->
-      <LoginForm @login="(username) => logMeIn(username)"></LoginForm>
-      <LoginForm @login="(username) => logMeIn(username)"></LoginForm>
-      <LoginForm @login="(username) => logMeIn(username)" button-label="Wejdź"></LoginForm>
-
+      <LoginForm @login="(username) => logMeIn(username)" button-label="Zaloguj się!"></LoginForm>
     </div>
 
-<!--    <h1>Twój e-mail to: {{ email }}-->
-<!--    Dlugosc twojego maila to {{email.length}}</h1>-->
-<!--    <div v-if="email.length < 10">Ale masz krótki adres!</div>-->
-<!--    <div v-else-if="email.length < 15">Twój adres e-mail jest w sam raz.</div>-->
-<!--    <div v-else>Twój adres e-mail jest stanowczo za długi.</div>-->
-
-
-<!--    <h1 class="smaller"> </h1>-->
-<!--      Zaloguj się emailem-->
-
-<!--    <h1>-->
-
-<!--    <button @click="alertMyEmail()">Wyświetl mój e-mail w alercie</button>-->
-
-
-<!--    <div v-if="!email.includes('@')">Niepoprawny mail.</div>-->
-
-    <div v-if="loggedIn == true">Witamy w systemie {{email}}
-      <p @click="logOut">Wyloguj</p>
+    <div v-if="email.length>0">Witamy w systemie {{email}}
+      <p class="colour" @click="logOut">Wyloguj</p>
+        <MeetingPage></MeetingPage>
+<!--        meeting page should not be created anew, but be visible/hidden basing on a condition other than email.length-->
     </div>
+
+      
 
   </div>
 </template>
@@ -46,41 +22,30 @@
 <script>
 import "milligram";
 import LoginForm from "./LoginForm";
+import MeetingPage from "@/meetings/MeetingPage.vue";
 export default {
-  components: {LoginForm},
+  components: {LoginForm, MeetingPage},
+
   data() {
     return {
       email: '',
       password: '',
-      loggedIn: false,
     };
   },
 
   methods: {
-    alertMyEmail() {
-      alert(this.email);
-    },
-
-    // updateScreen(){
-    //   this.loggedIn = true;
-    // },
 
     logOut(){
-      this.loggedIn = false;
       this.email = '';
+      //MeetingPage.style.display = 'none';
     },
 
     logMeIn(username) {
-      this.authenticatedUsername = username;
-      this.loggedIn = true;
+      this.email = username;
     }
   }
 
 }
-
-
-
-
 
 </script>
 
@@ -95,8 +60,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: 40px;
 }
-.smaller{
+.colour{
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 20px;
+  color: blue;
+
 }
 </style>
