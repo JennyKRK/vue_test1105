@@ -2,7 +2,7 @@
     <div>
         <label>Wanna an alert?</label>
         <input type="yourWords" v-model="yourWords">
-        <button @click="reactToIt">Say something</button>
+        <button @click="reactToIt">{{funnyLabel}}</button>
     </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
         reactToIt(){
             this.$emit("yourReaction",this.yourWords);
         }
+    },
+    props:{
+        funnyLabel: String,
     }
 }
 </script>

@@ -1,16 +1,19 @@
 <template>
     <div class="testApp">
         <p class="firstPart">Hello {{name}} </p>
-        <p>Give me your name</p>
+        <label>give me your name</label>
         <input type="name" v-model="name">
         <p class="red" v-if="name.length > 10"> Your name is so long {{name}}</p>
         <p v-if="name == 'James' ">James?</p>
         <p v-if="name.charAt(0) == 'A'">Your name starts with A!</p>
         <p v-else-if="name.charAt(0) =='B'">Your name starts with B!</p>
         <p v-else></p>
-        <YourMessage @yourText="(something) => allTheThingsYouSaid(something)"></YourMessage>
+        <YourMessage @yourText="(something) => allTheThingsYouSaid(something)" buttonLabel="Wejdz"
+        additional-label="OOOOOOOOOOOOOOOOO"></YourMessage>
         <p>{{something}}</p>
-        <YourAlert @yourReaction="(yourWords) => displayYourReaction(yourWords)"></YourAlert>
+        <YourAlert @yourReaction="(yourWords) => displayYourReaction(yourWords)" :funny-label="name.length < 10 ? 'Display short alert' : 'Display me'"></YourAlert>
+        <YourShortList></YourShortList>
+
 
     </div>
 
@@ -20,9 +23,10 @@
 import "milligram"
 import YourMessage from "@/YourMessage.vue";
 import YourAlert from "@/YourAlert.vue";
-import yourAlert from "@/YourAlert.vue";
+import YourShortList from "@/YourShortList.vue";
+
 export default {
-    components:{YourMessage, YourAlert},
+    components:{YourShortList, YourMessage, YourAlert},
     data(){
         return{
             name: "",
@@ -36,7 +40,8 @@ export default {
         displayYourReaction(newReaction){
             alert(newReaction);
         }
-    }
+    },
+
 }
 </script>
 
@@ -83,7 +88,7 @@ p.yourSay{
 <!--<script>-->
 <!--import "milligram";-->
 <!--import LoginForm from "./LoginForm";-->
-<!--import MeetingPage from "@/meetings/MeetingPage.vue";-->
+<!--import MeetingPage from "@/meetings/MyItemsPage.vue";-->
 <!--export default {-->
 <!--  components: {LoginForm, MeetingPage},-->
 
