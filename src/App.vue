@@ -1,6 +1,18 @@
 <template>
     <div class="testApp">
         <p class="firstPart">Hello {{name}} </p>
+        <button @click="displayweirdmessages()">weird button</button>
+        <label>some weird messages for you</label>
+        <ul>
+            <li v-for="someMessage in someMessages" :key="someMessage.id">
+                {{ someMessage }}
+            </li>
+        </ul>
+        <label>some other weird messages</label>
+            <li v-for="todo in todos" :key="todos.id">
+                {{ todo.id }} {{todo.text}}
+            </li>
+
         <label>give me your name</label>
         <input type="name" v-model="name">
         <p class="red" v-if="name.length > 10"> Your name is so long {{name}}</p>
@@ -20,6 +32,7 @@
 </template>
 
 <script>
+let id = 0;
 import "milligram"
 import YourMessage from "@/YourMessage.vue";
 import YourAlert from "@/YourAlert.vue";
@@ -31,6 +44,12 @@ export default {
         return{
             name: "",
             something: "",
+            someMessages: [],
+            todos: [
+                { id: id++, text: 'Learn HTML'},
+                { id: id++, text: 'Learn JavaScript'},
+            ],
+            newTodo: '',
         }
     },
     methods: {
@@ -39,7 +58,14 @@ export default {
         },
         displayYourReaction(newReaction){
             alert(newReaction);
-        }
+        },
+        displayweirdmessages(){
+            this.someMessages.push("oo")
+            this.someMessages.push(this.name);
+
+            this.todos.push({ id: id++, text: this.name, done: false });
+            alert(this.someMessages);
+        },
     },
 
 }
